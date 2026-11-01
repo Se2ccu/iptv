@@ -20,6 +20,7 @@ import sys
 import time
 import urllib.parse
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -63,6 +64,48 @@ def head_ok(url, timeout=15):
             return 200 <= r.status < 400
     except Exception:
         return False
+
+
+# --------------------------- 流探活 --------------------------- #
+def probe_stream(url, opts, timeout=12):
+    """GET 少量字节判断流是否可用。返回 (alive, info)。"""
+    headers = {"User-Agent": "Mozilla/5.0 (build.py)"}
+    for k, v in opts:
+        if k == "http-referrer":
+            headers["Referer"] = v
+        elif k == "user-agent":
+            headers["User-Agent"] = v
+    req = urllib.request.Request(url, headers=headers, method="GET")
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            if not (200 <= r.status < 400):
+                return False, f"HTTP {r.status}"
+            ctype = r.headers.get("Content-Type", "")
+            data = r.read(2048)
+            if data.lstrip().startswith(b"#EXTM3U") or "mpegurl" in ctype.lower():
+                return True, "m3u8"
+            return True, ctype or "200"
+    except Exception as e:
+        return False, type(e).__name__
+
+
+def probe_all(entries, workers=16):
+    seen = {}
+    todo = []
+    for e in entries:
+        if e["url"] not in seen:
+            todo.append(e)
+            seen[e["url"]] = True
+    results = {}
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        fut = {ex.submit(probe_stream, e["url"], e["opts"]): e["url"] for e in todo}
+        for f in fut:
+            u = fut[f]
+            try:
+                results[u] = f.result()
+            except Exception as ex:
+                results[u] = (False, str(ex))
+    return results
 
 
 # --------------------------- M3U 解析 --------------------------- #
@@ -330,6 +373,7 @@ def main():
     ap.add_argument("-o", "--output", default=str(ROOT / "docs" / "playlist.m3u"))
     ap.add_argument("--all-streams", action="store_true", help="保留同一频道的全部流（默认仅保留画质最高的一条）")
     ap.add_argument("--probe-logos", action="store_true", help="对未命中的台标逐个 HEAD 探测（较慢）")
+    ap.add_argument("--check-streams", action="store_true", help="构建时逐条探活，优先选可用流（较慢，CI 用）")
     ap.add_argument("--no-epg", action="store_true", help="不写入 x-tvg-url")
     args = ap.parse_args()
 
@@ -355,6 +399,19 @@ def main():
         base = e["tid"].split("@")[0] if e["tid"] else e["name"]
         by_id.setdefault(base, []).append(e)
 
+    # 流探活
+    alive_map = {}
+    if args.check_streams:
+        print(f"→ 探活 {len(raw_entries)} 条流 …", file=sys.stderr)
+        alive_map = probe_all(raw_entries)
+        ok = sum(1 for v in alive_map.values() if v[0])
+        print(f"  可用 {ok}/{len(alive_map)}", file=sys.stderr)
+
+    def sort_key(it):
+        # 探活可用者优先；其次画质
+        alive = alive_map.get(it["url"], (True, ""))[0] if alive_map else True
+        return (1 if alive else 0, quality_score(it))
+
     resolved = []
     name_ok = logo_ok = 0
     for base_id, items in by_id.items():
@@ -372,9 +429,9 @@ def main():
 
         # 选流
         if args.all_streams:
-            chosen = sorted(items, key=quality_score, reverse=True)
+            chosen = sorted(items, key=sort_key, reverse=True)
         else:
-            chosen = [max(items, key=quality_score)]
+            chosen = [max(items, key=sort_key)]
 
         for it in chosen:
             resolved.append({

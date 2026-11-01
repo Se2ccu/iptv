@@ -31,7 +31,7 @@ jobs:
 
       - name: Build playlist
         run: |
-          python build.py --probe-logos -o docs/playlist.m3u
+          python build.py --probe-logos --check-streams -o docs/playlist.m3u
 
       - name: Commit playlist
         run: |
