@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>中文 IPTV 播放器</title>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
+<style>
+  :root{--bg:#0f1115;--panel:#171a21;--line:#232732;--txt:#e6e8eb;--mut:#8a93a3;--acc:#3b82f6}
+  *{box-sizing:border-box}
+  body{margin:0;font:14px/1.5 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--txt);display:flex;height:100vh}
+  #list{width:320px;flex:0 0 320px;background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column}
+  #list header{padding:12px;border-bottom:1px solid var(--line)}
+  #list header h1{margin:0 0 8px;font-size:15px}
+  #list header input,#list header select{width:100%;padding:7px 9px;background:#0b0d12;color:var(--txt);border:1px solid var(--line);border-radius:6px;margin-bottom:8px}
+  #channels{overflow:auto;flex:1}
+  .ch{display:flex;align-items:center;gap:10px;padding:8px 12px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.03)}
+  .ch:hover{background:rgba(255,255,255,.04)}
+  .ch.active{background:rgba(59,130,246,.18)}
+  .ch img{width:38px;height:38px;object-fit:contain;background:#000;border-radius:6px;flex:0 0 38px}
+  .ch .nm{font-size:13px;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ch .gp{font-size:11px;color:var(--mut)}
+  #player{flex:1;display:flex;flex-direction:column}
+  #bar{padding:10px 14px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  #bar .title{font-weight:600}
+  #bar .sub{color:var(--mut);font-size:12px;word-break:break-all}
+  #stage{flex:1;background:#000;display:flex;align-items:center;justify-content:center;position:relative}
+  video{max-width:100%;max-height:100%}
+  #note{position:absolute;bottom:12px;left:12px;right:12px;color:var(--mut);font-size:12px;background:rgba(0,0,0,.5);padding:8px 10px;border-radius:6px}
+  .badge{font-size:11px;padding:1px 6px;border-radius:4px;background:#334155;color:#cbd5e1}
+  .badge.warn{background:#7c2d12;color:#fed7aa}
+</style>
+</head>
+<body>
+<div id="list">
+  <header>
+    <h1>📺 中文 IPTV</h1>
+    <input id="search" placeholder="搜索频道名 …" autocomplete="off">
+    <select id="group"></select>
+  </header>
+  <div id="channels"></div>
+</div>
+<div id="player">
+  <div id="bar">
+    <div>
+      <div class="title" id="ctitle">未选择频道</div>
+      <div class="sub" id="csrc"></div>
+    </div>
+    <span class="badge" id="cstatus"></span>
+  </div>
+  <div id="stage">
+    <video id="v" controls playsinline></video>
+    <div id="note"></div>
+  </div>
+</div>
+<script>
+const M3U = new URL('playlist.m3u', location.href).href;
+const groups = {}, all = [];
+let hls = null;
+
+async function load(){
+  const r = await fetch(M3U);
+  const txt = await r.text();
+  parse(txt);
+  renderGroups();
+  render();
+}
+function parse(txt){
+  let cur=null, group='';
+  for(const line of txt.split(/\r?\n/)){
+    if(!line) continue;
+    if(line.startsWith('#EXTINF')){
+      const am = [...line.matchAll(/(\w[\w-]*)="([^"]*)"/g)].reduce((a,m)=>(a[m[1]]=m[2],a),{});
+      const name = line.split(',').slice(1).join(',').trim();
+      group = am['group-title']||'其他';
+      cur = {name, group, logo:am['tvg-logo']||'', url:''};
+    } else if(line.startsWith('#')){ /* ignore opts */ }
+    else if(cur){ cur.url=line; all.push(cur); groups[cur.group]=(groups[cur.group]||0)+1; cur=null; }
+  }
+}
+function renderGroups(){
+  const sel=document.getElementById('group');
+  sel.innerHTML='<option value="">全部分组</option>'+Object.keys(groups).sort().map(g=>`<option>${g}</option>`).join('');
+}
+function render(){
+  const q=document.getElementById('search').value.trim().toLowerCase();
+  const g=document.getElementById('group').value;
+  const box=document.getElementById('channels');
+  box.innerHTML='';
+  for(const c of all){
+    if(g && c.group!==g) continue;
+    if(q && !c.name.toLowerCase().includes(q)) continue;
+    const d=document.createElement('div');
+    d.className='ch';
+    d.innerHTML=`<img src="${c.logo||''}" onerror="this.style.visibility='hidden'"><div><div class="nm">${c.name}</div><div class="gp">${c.group}</div></div>`;
+    d.onclick=()=>play(c,d);
+    box.appendChild(d);
+  }
+}
+function setBadge(txt,warn){
+  const b=document.getElementById('cstatus');
+  b.textContent=txt; b.className='badge'+(warn?' warn':'');
+}
+function note(t){document.getElementById('note').textContent=t||'';}
+
+function play(c,el){
+  document.querySelectorAll('.ch.active').forEach(x=>x.classList.remove('active'));
+  el&&el.classList.add('active');
+  document.getElementById('ctitle').textContent=c.name;
+  document.getElementById('csrc').textContent=c.url;
+  const v=document.getElementById('v');
+  if(hls){hls.destroy();hls=null;}
+  v.src='';
+  note('');
+  const isHttp = c.url.startsWith('http://');
+  const isM3u8 = /\.m3u8($|\?)/i.test(c.url);
+  if(isHttp && location.protocol==='https:'){
+    setBadge('无法播放',true);
+    note('该源是 http 协议，本页面是 https，浏览器会因“混合内容”拦截。请改用 IPTV/App 订阅 playlist.m3u，或更换 https 源。');
+    return;
+  }
+  if(isM3u8 && window.Hls && Hls.isSupported()){
+    setBadge('加载中 …');
+    hls=new Hls({lowLatencyMode:true});
+    hls.loadSource(c.url);
+    hls.attachMedia(v);
+    hls.on(Hls.Events.MANIFEST_PARSED,()=>{setBadge('播放中'); v.play().catch(()=>{});});
+    hls.on(Hls.Events.ERROR,(_,d)=>{
+      if(d.fatal){ setBadge('播放失败',true);
+        note('播放失败：通常是源失效、地域限制或源服务器未允许跨域(CORS)。可换其它源或用本地播放器(如 PotPlayer/VLC/IPTV App)订阅 playlist.m3u。');
+      }
+    });
+  } else {
+    setBadge('加载中 …');
+    v.src=c.url;
+    v.play().catch(err=>{setBadge('播放失败',true); note('原生播放失败：'+err.message+'。建议用本地播放器订阅 playlist.m3u。');});
+  }
+}
+document.getElementById('search').addEventListener('input',render);
+document.getElementById('group').addEventListener('change',render);
+load();
+</script>
+</body>
+</html>

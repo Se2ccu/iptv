@@ -1,0 +1,61 @@
+name: Build IPTV Playlist
+
+on:
+  schedule:
+    - cron: "0 2 * * *"   # 每天北京时间约 10:00 重建
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "build.py"
+      - "data/overrides.json"
+      - ".github/workflows/build.yml"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: build
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build playlist
+        run: |
+          python build.py --probe-logos -o docs/playlist.m3u
+
+      - name: Commit playlist
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/playlist.m3u
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "chore: rebuild playlist $(date -u +%F)"
+            git push
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.de.outputs.page_url }}
+    steps:
+      - id: de
+        uses: actions/deploy-pages@v4
