@@ -42,6 +42,7 @@ jobs:
             echo "No changes."
           else
             git commit -m "chore: rebuild playlist $(date -u +%F)"
+            git pull --rebase origin main
             git push
           fi
 
