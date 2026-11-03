@@ -320,6 +320,8 @@ http://seb.sason.top/sc/tvbsxw_fhd.m3u8
 http://103.172.187.30:12000/stream/mytv/null-1/master.m3u8
 #EXTINF:-1 tvg-id="Thrill.hk" tvg-name="Thrill.hk" tvg-logo="https://i.imgur.com/Y282owj.png" group-title="港澳台",Thrill
 https://cdn10jtedge.indihometv.com/atm/DASH/thrill/manifest.mpd
+#EXTINF:-1 tvg-id="ViuTV.hk" tvg-name="ViuTV.hk" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/ViuTV_logo.svg/960px-ViuTV_logo.svg.png" group-title="港澳台",ViuTV
+http://php.jdshipin.com/TVOD/iptv.php?id=viutv
 #EXTINF:-1 tvg-id="WXTV.tw" tvg-name="WXTV.tw" tvg-logo="https://i.imgur.com/s8tiTeb.png" group-title="港澳台",WXTV
 https://mobile.ccdntech.com/transcoder/_definst_/vod164_Live/live/chunklist_w1177047531.m3u8
 #EXTINF:-1 tvg-id="SETNews.tw" tvg-name="SETNews.tw" tvg-logo="https://i.imgur.com/EGVbAvJ.png" group-title="港澳台",三立新闻台
