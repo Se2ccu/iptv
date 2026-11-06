@@ -157,7 +157,7 @@ https://chibrics.mediacdn.ru/cdn/brics/chinese/playlist.m3u8
 #EXTINF:-1 tvg-id="VoATVChina.cn" tvg-name="VoATVChina.cn" tvg-logo="https://live.fanmingming.cn/tv/VOA%E7%BE%8E%E5%9B%BD%E4%B9%8B%E9%9F%B3.png" group-title="地方频道",VOA美国之音
 https://voa-ingest.akamaized.net/hls/live/2033878/tvmc08/playlist.m3u8
 #EXTINF:-1 tvg-id="DongguanComprehensiveNewsChannel.cn" tvg-name="DongguanComprehensiveNewsChannel.cn" tvg-logo="https://www.tvchinese.net/uploads/tv/dgtv1.jpg" group-title="地方频道",东莞广播电视台
-https://stream.sun0769.com/dgrtv1/mp4tv1_800/index.m3u8
+http://stream.sun0769.com/dgrtv1/mp4tv1_1500.flv
 #EXTINF:-1 tvg-id="ChinaTravel.cn" tvg-name="ChinaTravel.cn" tvg-logo="https://i.imgur.com/vSgY3CD.png" group-title="地方频道",中国旅游频道
 https://fastlive.cctvplus.com/out/v1/ca6f9297b7314a63959435028af287fc/index.m3u8
 #EXTINF:-1 tvg-id="ChinaWeatherChannel.cn" tvg-name="ChinaWeatherChannel.cn" tvg-logo="https://i.imgur.com/syNwDpg.png" group-title="地方频道",中国气象频道
@@ -209,7 +209,7 @@ http://livealone302.iqilu.com/iqilu/qlpd.m3u8
 #EXTINF:-1 tvg-id="GuangzhouTV.cn" tvg-name="GuangzhouTV.cn" tvg-logo="https://live.fanmingming.cn/tv/%E5%B9%BF%E5%B7%9E%E7%BB%BC%E5%90%88.png" group-title="地方频道",广州综合频道
 https://tencentplaybusiness.gztv.com/live/zonghes.m3u8
 #EXTINF:-1 tvg-id="GuangxiVarietyTravelChannel.cn" tvg-name="GuangxiVarietyTravelChannel.cn" tvg-logo="https://www.tvchinese.net/uploads/tv/gxzypd.jpg" group-title="地方频道",广西综艺旅游频道
-http://111.59.24.227:8181/tsfile/live/1001_1.m3u8?key=txiptv&playlive=1&authid=0
+http://111.59.24.227:8181/tsfile/live/1001_1.m3u8?authid=0&key=txiptv&playlive=1
 #EXTINF:-1 tvg-id="XuzhouEconomicLifeChannel.cn" tvg-name="XuzhouEconomicLifeChannel.cn" group-title="地方频道",徐州经济生活频道
 http://223.110.245.167/ott.js.chinamobile.com/PLTV/3/224/3221225947/index.m3u8
 #EXTINF:-1 tvg-id="DunhuangTV.cn" tvg-name="DunhuangTV.cn" tvg-logo="https://i.imgur.com/RpGKOQd.jpg" group-title="地方频道",敦煌电视台
@@ -263,7 +263,7 @@ http://113.64.146.48:1688/hls/4/index.m3u8
 #EXTINF:-1 tvg-id="BaichengTV.cn" tvg-name="BaichengTV.cn" tvg-logo="https://www.tvchinese.net/uploads/tv/baicheng.jpg" group-title="地方频道",白城新闻综合频道
 https://stream2.jlntv.cn/baicheng1/sd/live.m3u8
 #EXTINF:-1 tvg-id="FujianComprehensiveChannel.cn" tvg-name="FujianComprehensiveChannel.cn" tvg-logo="https://i.imgur.com/rePTGa6.png" group-title="地方频道",福建综合频道
-http://120.39.52.202:5140/%E7%A6%8F%E5%BB%BA%E7%BB%BC%E5%90%88
+http://120.39.52.202:5140/福建综合
 #EXTINF:-1 tvg-id="DocumentaryHumanitiesChannel.cn" tvg-name="DocumentaryHumanitiesChannel.cn" tvg-logo="https://live.fanmingming.cn/tv/%E7%BA%AA%E5%AE%9E%E4%BA%BA%E6%96%87.png" group-title="地方频道",纪实人文频道
 http://39.135.138.59:18890/PLTV/88888910/224/3221225655/index.m3u8
 #EXTINF:-1 tvg-id="JingmenComprehensiveNewsChannel.cn" tvg-name="JingmenComprehensiveNewsChannel.cn" tvg-logo="https://www.tvchinese.net/uploads/tv/jmsxwpd.jpg" group-title="地方频道",荆门新闻综合频道
@@ -287,17 +287,17 @@ http://35848.hlsplay.aodianyun.com/guangdianyun_35848/tv_channel_348.m3u8
 #EXTINF:-1 tvg-id="HunanNewsChannel.cn" tvg-name="HunanNewsChannel.cn" tvg-logo="https://static.tvtropes.org/pmwiki/pub/images/hunantv_logo.png" group-title="地方频道",长沙新闻频道
 http://35848.hlsplay.aodianyun.com/guangdianyun_35848/tv_channel_346.m3u8
 #EXTINF:-1 tvg-id="QTV4.cn" tvg-name="QTV4.cn" tvg-logo="https://live.fanmingming.cn/tv/QTV4.png" group-title="地方频道",青岛休闲资讯频道
-http://video10.qtv.com.cn/drm/qtv4at/manifest.m3u8
+http://119.166.53.110:85/tsfile/live/1004_1.m3u8?authid=0&key=txiptv&playlive=1
 #EXTINF:-1 tvg-id="QTV3.cn" tvg-name="QTV3.cn" tvg-logo="https://live.fanmingming.cn/tv/QTV3.png" group-title="地方频道",青岛影视频道
-http://video10.qtv.com.cn/drm/qtv3at/manifest.m3u8
+http://119.166.53.110:85/tsfile/live/1002_1.m3u8?authid=0&key=txiptv&playlive=1
 #EXTINF:-1 tvg-id="QTV1.cn" tvg-name="QTV1.cn" tvg-logo="https://live.fanmingming.cn/tv/QTV1.png" group-title="地方频道",青岛新闻综合频道
-http://video10.qtv.com.cn/drm/qtv1at/manifest.m3u8
+http://119.166.53.110:85/tsfile/live/1000_1.m3u8?authid=0&key=txiptv&playlive=1
 #EXTINF:-1 tvg-id="QTV2.cn" tvg-name="QTV2.cn" tvg-logo="https://live.fanmingming.cn/tv/QTV2.png" group-title="地方频道",青岛生活服务频道
 http://video10.qtv.com.cn/drm/qtv2at/manifest.m3u8
 #EXTINF:-1 tvg-id="QTV5.cn" tvg-name="QTV5.cn" tvg-logo="https://live.fanmingming.cn/tv/QTV5.png" group-title="地方频道",青岛都市频道
 http://video10.qtv.com.cn/drm/qtv5at/manifest.m3u8
 #EXTINF:-1 tvg-id="QTV6.cn" tvg-name="QTV6.cn" tvg-logo="https://live.fanmingming.cn/tv/QTV6.png" group-title="地方频道",青岛青少旅游频道
-http://video10.qtv.com.cn/drm/qtv6at/manifest.m3u8
+http://119.166.53.110:85/tsfile/live/0002_1.m3u8?authid=0&key=txiptv&playlive=1
 #EXTINF:-1 tvg-id="FengshangShoppingChannel.cn" tvg-name="FengshangShoppingChannel.cn" tvg-logo="https://live.fanmingming.cn/tv/%E9%A3%8E%E5%B0%9A%E8%B4%AD%E7%89%A9.png" group-title="地方频道",风尚购物
 http://183.207.248.71/cntv/live1/fengshanggw/fengshanggw
 #EXTINF:-1 tvg-id="HebiNewsChannel.cn" tvg-name="HebiNewsChannel.cn" tvg-logo="https://i.imgur.com/Osw5yRW.png" group-title="地方频道",鹤壁新闻综合频道
@@ -384,7 +384,7 @@ https://cdn4.skygo.mn/live/disk1/Lotus/HLSv3-FTA/Lotus.m3u8
 #EXTINF:-1 tvg-id="TDMInformation.mo" tvg-name="TDMInformation.mo" tvg-logo="https://i.imgur.com/h7HfsLx.png" group-title="港澳台",澳门资讯频道
 https://live3.tdm.com.mo/ch5/info_ch5.live/playlist.m3u8
 #EXTINF:-1 tvg-id="MeiAhMovieChannel.hk" tvg-name="MeiAhMovieChannel.hk" tvg-logo="https://i.imgur.com/laGiFM1.png" group-title="港澳台",美亚电影台
-http://103.172.187.30:12000/stream/mytv/null-9/master.m3u8
+http://103.172.187.30:12000/stream/mytv/null-2/master.m3u8
 #EXTINF:-1 tvg-id="BeautifulLifeTV.tw" tvg-name="BeautifulLifeTV.tw" tvg-logo="https://i.imgur.com/hkwcBM9.png" group-title="港澳台",美好人生电视
 https://5ddce30eb4b55.streamlock.net/bltvhd/bltv1/playlist.m3u8
 #EXTINF:-1 tvg-id="HongKongInternationalBusinessChannel.hk" tvg-name="HongKongInternationalBusinessChannel.hk" tvg-logo="https://live.fanmingming.cn/tv/%E9%A6%99%E6%B8%AF%E5%9B%BD%E9%99%85%E8%B4%A2%E7%BB%8F%E5%8F%B0.png" group-title="港澳台",香港国际财经台
