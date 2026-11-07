@@ -214,6 +214,8 @@ http://111.59.24.227:8181/tsfile/live/1001_1.m3u8?authid=0&key=txiptv&playlive=1
 http://223.110.245.167/ott.js.chinamobile.com/PLTV/3/224/3221225947/index.m3u8
 #EXTINF:-1 tvg-id="DunhuangTV.cn" tvg-name="DunhuangTV.cn" tvg-logo="https://i.imgur.com/RpGKOQd.jpg" group-title="地方频道",敦煌电视台
 http://117.156.28.119/270000001111/1110000028/index.m3u8
+#EXTINF:-1 tvg-id="YichangSanxiaTravelLifeChannel.cn" tvg-name="YichangSanxiaTravelLifeChannel.cn" tvg-logo="https://www.tvchinese.net/uploads/tv/ycsxlysh.jpg" group-title="地方频道",旅游生活频道
+https://liveplay.ycrmt.cn/sxgd/lysh.m3u8
 #EXTINF:-1 tvg-id="ChuxiongNewsChannel.cn" tvg-name="ChuxiongNewsChannel.cn" tvg-logo="https://www.tvchinese.net/uploads/tv/chuxiongtv.jpg" group-title="地方频道",楚雄新闻频道
 http://hwapi.yntv.net/ew265l/848y54.m3u8
 #EXTINF:-1 tvg-id="JiangsuSportsLeisureChannel.cn" tvg-name="JiangsuSportsLeisureChannel.cn" tvg-logo="https://www.tvchinese.net/uploads/tv/jsty.jpg" group-title="地方频道",江苏体育休闲频道
@@ -266,6 +268,8 @@ https://stream2.jlntv.cn/baicheng1/sd/live.m3u8
 http://120.39.52.202:5140/福建综合
 #EXTINF:-1 tvg-id="DocumentaryHumanitiesChannel.cn" tvg-name="DocumentaryHumanitiesChannel.cn" tvg-logo="https://live.fanmingming.cn/tv/%E7%BA%AA%E5%AE%9E%E4%BA%BA%E6%96%87.png" group-title="地方频道",纪实人文频道
 http://39.135.138.59:18890/PLTV/88888910/224/3221225655/index.m3u8
+#EXTINF:-1 tvg-id="YichangSanxiaGeneralChannel.cn" tvg-name="YichangSanxiaGeneralChannel.cn" tvg-logo="https://www.tvchinese.net/uploads/tv/ycsxggpd.jpg" group-title="地方频道",综合频道
+https://liveplay.ycrmt.cn/sxgd/zhpd.m3u8
 #EXTINF:-1 tvg-id="JingmenComprehensiveNewsChannel.cn" tvg-name="JingmenComprehensiveNewsChannel.cn" tvg-logo="https://www.tvchinese.net/uploads/tv/jmsxwpd.jpg" group-title="地方频道",荆门新闻综合频道
 https://stream.jmtv.com.cn/xwzh/sd/live.m3u8?_upt=341f4b8e1791883036
 #EXTINF:-1 tvg-id="PingxiangTVNewsChannel.cn" tvg-name="PingxiangTVNewsChannel.cn" tvg-logo="https://i.imgur.com/Kc7htop.jpg" group-title="地方频道",萍乡新闻综合频道
